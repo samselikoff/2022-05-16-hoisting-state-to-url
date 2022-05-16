@@ -11,6 +11,7 @@
     "dev:css": "tailwindcss -w -i ./styles/app.css -o app/styles/app.css"
   },
   "dependencies": {
+    "@faker-js/faker": "^6.3.1",
     "@headlessui/react": "^1.6.1",
     "@heroicons/react": "^1.0.6",
     "@remix-run/node": "^1.4.3",
