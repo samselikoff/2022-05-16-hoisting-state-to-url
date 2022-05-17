@@ -43,7 +43,7 @@ export default function Index() {
                       >
                         <a href="/" className="inline-flex group">
                           Name
-                          <span className="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible">
+                          <span className="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible group-focus:visible">
                             <ChevronDownIcon
                               className="w-5 h-5"
                               aria-hidden="true"

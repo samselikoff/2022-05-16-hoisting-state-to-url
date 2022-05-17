@@ -19,8 +19,8 @@ let people = faker.datatype.array(20).map(() => {
 });
 
 export default function Index() {
-  let [sort, setSort] = useState("");
-  let [sortProp, desc] = sort.split(":");
+  let [sort, setSort] = useState(null);
+  let [sortProp, desc] = sort?.split(":") || [];
   let sortedPeople = [...people].sort((a, b) => {
     return desc
       ? b[sortProp]?.localeCompare(a[sortProp])
@@ -28,7 +28,7 @@ export default function Index() {
   });
 
   return (
-    <div className="max-w-6xl py-16 mx-auto lg:pt-32">
+    <div className="max-w-6xl pt-16 mx-auto lg:pt-32">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
@@ -46,54 +46,34 @@ export default function Index() {
                 <table className="min-w-full divide-y divide-gray-300">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th
-                        scope="col"
-                        className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                      <SortableColumn
+                        currentSort={sort}
+                        prop="name"
+                        onClick={(prop) => setSort(prop)}
                       >
-                        <SortableColumn
-                          prop="name"
-                          currentSort={sort}
-                          onClick={(newSort) => setSort(newSort)}
-                        >
-                          Name
-                        </SortableColumn>
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        Name
+                      </SortableColumn>
+                      <SortableColumn
+                        currentSort={sort}
+                        prop="title"
+                        onClick={(prop) => setSort(prop)}
                       >
-                        <SortableColumn
-                          prop="title"
-                          currentSort={sort}
-                          onClick={(newSort) => setSort(newSort)}
-                        >
-                          Title
-                        </SortableColumn>
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        Title
+                      </SortableColumn>
+                      <SortableColumn
+                        currentSort={sort}
+                        prop="email"
+                        onClick={(prop) => setSort(prop)}
                       >
-                        <SortableColumn
-                          prop="email"
-                          currentSort={sort}
-                          onClick={(newSort) => setSort(newSort)}
-                        >
-                          Email
-                        </SortableColumn>
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        Email
+                      </SortableColumn>
+                      <SortableColumn
+                        currentSort={sort}
+                        prop="role"
+                        onClick={(prop) => setSort(prop)}
                       >
-                        <SortableColumn
-                          prop="role"
-                          currentSort={sort}
-                          onClick={(newSort) => setSort(newSort)}
-                        >
-                          Role
-                        </SortableColumn>
-                      </th>
+                        Role
+                      </SortableColumn>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -124,35 +104,43 @@ export default function Index() {
   );
 }
 
-function SortableColumn({ prop, currentSort, children, onClick }) {
-  let [sortProp, desc] = currentSort?.split(":");
-  let active = sortProp === prop;
+function SortableColumn({ currentSort, prop, onClick, children }) {
+  let [sortProp, desc] = currentSort?.split(":") || [];
+  let newSort;
 
-  function handleClick() {
-    if (!currentSort || prop !== sortProp) {
-      onClick(prop);
-    } else if (prop === sortProp && !desc) {
-      onClick(`${prop}:desc`);
-    } else if (prop === sortProp && desc) {
-      onClick("");
-    }
+  if (prop !== sortProp) {
+    newSort = prop;
+  } else if (sortProp === prop && !desc) {
+    newSort = `${prop}:desc`;
+  } else {
+    newSort = null;
   }
 
   return (
-    <button onClick={handleClick} className="inline-flex group">
-      {children}
-      <span
-        className={`${
-          active
-            ? "text-gray-900 bg-gray-200 group-hover:bg-gray-300"
-            : "invisible text-gray-400 group-hover:visible"
-        } flex-none ml-2 rounded`}
+    <th
+      scope="col"
+      className="py-3.5 px-3 first:pl-4 last:pr-4 sm:last:pr-6 text-left text-sm text-gray-900 sm:first:pl-6"
+    >
+      <button
+        onClick={() => onClick(newSort)}
+        className="inline-flex font-semibold font group"
       >
-        <ChevronDownIcon
-          className={`w-5 h-5 ${active && desc ? "rotate-180" : ""}`}
-          aria-hidden="true"
-        />
-      </span>
-    </button>
+        {children}
+        <span
+          className={`${
+            sortProp === prop
+              ? "text-gray-900 bg-gray-200 group-hover:bg-gray-300"
+              : "text-gray-400 group-hover:visible invisible"
+          } flex-none ml-2 rounded`}
+        >
+          <ChevronDownIcon
+            className={`${
+              prop === sortProp && desc ? "rotate-180" : ""
+            } w-5 h-5`}
+            aria-hidden="true"
+          />
+        </span>
+      </button>
+    </th>
   );
 }

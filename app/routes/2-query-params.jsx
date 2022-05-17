@@ -28,7 +28,7 @@ export default function Index() {
   });
 
   return (
-    <div className="max-w-6xl py-16 mx-auto lg:pt-32">
+    <div className="max-w-6xl pt-16 mx-auto lg:pt-32">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
@@ -46,30 +46,10 @@ export default function Index() {
                 <table className="min-w-full divide-y divide-gray-300">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th
-                        scope="col"
-                        className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                      >
-                        <SortableColumn prop="name">Name</SortableColumn>
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        <SortableColumn prop="title">Title</SortableColumn>
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        <SortableColumn prop="email">Email</SortableColumn>
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                      >
-                        <SortableColumn prop="role">Role</SortableColumn>
-                      </th>
+                      <SortableColumn prop="name">Name</SortableColumn>
+                      <SortableColumn prop="title">Title</SortableColumn>
+                      <SortableColumn prop="email">Email</SortableColumn>
+                      <SortableColumn prop="role">Role</SortableColumn>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -103,33 +83,41 @@ export default function Index() {
 function SortableColumn({ prop, children }) {
   let [currentSearchParams] = useSearchParams();
   let [sortProp, desc] = currentSearchParams.get("sort")?.split(":") || [];
-  let active = sortProp === prop;
-  let searchParams;
+  let newSort = null;
 
-  if (!sortProp || prop !== sortProp) {
-    searchParams = new URLSearchParams({ sort: prop });
-  } else if (prop === sortProp && !desc) {
-    searchParams = new URLSearchParams({ sort: `${prop}:desc` });
+  if (prop !== sortProp) {
+    newSort = prop;
+  } else if (sortProp === prop && !desc) {
+    newSort = `${prop}:desc`;
   }
 
+  let searchParams = new URLSearchParams({ sort: newSort });
+
   return (
-    <Link
-      to={searchParams ? `/?${searchParams}` : "/"}
-      className="inline-flex group"
+    <th
+      scope="col"
+      className="py-3.5 px-3 first:pl-4 last:pr-4 sm:last:pr-6 text-left text-sm text-gray-900 sm:first:pl-6"
     >
-      {children}
-      <span
-        className={`${
-          active
-            ? "text-gray-900 bg-gray-200 group-hover:bg-gray-300"
-            : "invisible text-gray-400 group-hover:visible"
-        } flex-none ml-2 rounded`}
+      <Link
+        to={newSort ? `/?${searchParams}` : "/"}
+        className="inline-flex font-semibold font group"
       >
-        <ChevronDownIcon
-          className={`w-5 h-5 ${active && desc ? "rotate-180" : ""}`}
-          aria-hidden="true"
-        />
-      </span>
-    </Link>
+        {children}
+        <span
+          className={`${
+            sortProp === prop
+              ? "text-gray-900 bg-gray-200 group-hover:bg-gray-300"
+              : "text-gray-400 group-hover:visible invisible"
+          } flex-none ml-2 rounded`}
+        >
+          <ChevronDownIcon
+            className={`${
+              prop === sortProp && desc ? "rotate-180" : ""
+            } w-5 h-5`}
+            aria-hidden="true"
+          />
+        </span>
+      </Link>
+    </th>
   );
 }

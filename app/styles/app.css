@@ -612,11 +612,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
-.py-16 {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-}
-
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -625,6 +620,16 @@ Ensure the default browser behavior of the `hidden` attribute.
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 
 .py-3\.5 {
@@ -637,14 +642,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-bottom: 0.75rem;
 }
 
-.px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-}
-
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+.pt-16 {
+  padding-top: 4rem;
 }
 
 .pl-4 {
@@ -653,10 +652,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .pr-3 {
   padding-right: 0.75rem;
-}
-
-.pt-16 {
-  padding-top: 4rem;
 }
 
 .pl-3 {
@@ -743,6 +738,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-ring-opacity: 0.05;
 }
 
+.first\:pl-4:first-child {
+  padding-left: 1rem;
+}
+
+.last\:pr-4:last-child {
+  padding-right: 1rem;
+}
+
 .hover\:text-indigo-900:hover {
   --tw-text-opacity: 1;
   color: rgb(49 46 129 / var(--tw-text-opacity));
@@ -789,6 +792,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
 
   .sm\:pr-6 {
+    padding-right: 1.5rem;
+  }
+
+  .sm\:first\:pl-6:first-child {
+    padding-left: 1.5rem;
+  }
+
+  .sm\:last\:pr-6:last-child {
     padding-right: 1.5rem;
   }
 }
