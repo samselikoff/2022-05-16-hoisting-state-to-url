@@ -715,10 +715,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
-.group:focus .group-focus\:visible {
-  visibility: visible;
-}
-
 @media (min-width: 640px) {
   .sm\:-mx-6 {
     margin-left: -1.5rem;
