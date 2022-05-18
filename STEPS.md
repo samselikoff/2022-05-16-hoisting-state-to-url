@@ -12,6 +12,12 @@ Thank Adam for letting me use Tailwind UI!
 # Step
 
 ```js
+let [sort, setSort] = useState(null);
+```
+
+# Step
+
+```js
 let sortedPeople = people.sort((a, b) => a[sort]?.localeCompare(b[sort]));
 ```
 
@@ -58,4 +64,14 @@ useEffect(() => {
     navigate("/");
   }
 }, [navigate, sort]);
+```
+
+# Step
+
+```js
+<Link to={`/?sort=${newSort}`} />
+```
+
+```js
+let [searchParams] = useSearchParams();
 ```

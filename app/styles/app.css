@@ -799,6 +799,10 @@ Ensure the default browser behavior of the `hidden` attribute.
     padding-left: 1.5rem;
   }
 
+  .first\:sm\:pl-6:first-child {
+    padding-left: 1.5rem;
+  }
+
   .sm\:last\:pr-6:last-child {
     padding-right: 1.5rem;
   }
