@@ -17,7 +17,7 @@ export function links() {
 
 export const meta = () => ({
   charset: "utf-8",
-  title: "New Remix App",
+  title: "Lifting state up to the URL",
   viewport: "width=device-width,initial-scale=1",
 });
 
