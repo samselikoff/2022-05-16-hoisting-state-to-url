@@ -28,7 +28,7 @@ export default function Index() {
   });
 
   return (
-    <div className="max-w-6xl pt-16 mx-auto lg:pt-32">
+    <div className="max-w-6xl py-8 mx-auto lg:py-16">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
